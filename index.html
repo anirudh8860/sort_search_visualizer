@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <title>Data Search and Sort Visualizer</title>
+    <script src="visualizer.js"></script>
+  </head>
+
+  <body style="width:100%;">
+    <head>Data Search and Sort Visualizer</head>
+
+    <p>Enter data set here <b>(Note please seperate input from commas)</b></p>
+
+    <p><input type="text" id="user_input"></input></p>
+    <p>Click on function you want to perform</b></p>
+
+    <p>
+      <button type="button" id="linear_search" onclick="setSearchValue(true, false)">Linear Search</button>
+      <button type="button" id="binary_search" onclick="setSearchValue(false, true)">Binary Search</button>
+      <button type="button" id="selection_sort" onclick="doSort(true, false)">Selection Sort</button>
+      <button type="button" id="bubble_sort" onclick="doSort(false, true)">Bubble Sort</button>
+    </p>
+
+    <p>
+      <input type="number" id="search_data"></input>
+      <button type="button" id="search_btn" onclick="doSearch()">Search</button>
+    </p>
+
+  </body>
+</html>

@@ -1,0 +1,225 @@
+var tbl, input_arr;
+var binaryClicked = false, linearClicked = false;
+var timeoutTime = 1000;
+
+function showSearchInput(visibility) {
+  let searchText = document.getElementById("search_data");
+  let searchBtn = document.getElementById("search_btn");
+
+  searchText.style.visibility = visibility;
+  searchBtn.style.visibility = visibility;
+}
+
+function setSearchValue(val1, val2) {
+  if (tbl) {
+    tbl.remove();
+  }
+  linearClicked = val1;
+  binaryClicked = val2;
+
+  showSearchInput("visible");
+}
+
+function createTable() {
+  tbl = document.createElement('table');
+  let getInput = document.getElementById("user_input").value;
+  input_arr = getInput.split(",");
+
+  for (let i in input_arr)
+    input_arr[i] = parseInt(input_arr[i]);
+
+  console.log(input_arr);
+
+  if (binaryClicked) {
+    input_arr = quickSort(input_arr, 0, input_arr.length - 1);
+  }
+
+  let body = document.getElementsByTagName('body')[0];
+  tbl.style.width = '500px';
+  tbl.style.height = '100px';
+  tbl.setAttribute('border', '2');
+  let tbdy = document.createElement('tbody');
+  let tr = tbl.insertRow(0);
+  for (let i in input_arr) {
+      var td = tr.insertCell();
+      td.appendChild(document.createTextNode('\u0020'));
+      td.setAttribute('rowSpan', 2);
+      td.style.textAlign = "center";
+      td.innerHTML = input_arr[i];
+      tr.appendChild(td);
+      tbdy.appendChild(tr);
+  }
+  tbl.appendChild(tbdy);
+  body.appendChild(tbl);
+}
+
+function doSearch() {
+  createTable();
+  let data = tbl.getElementsByTagName("td");
+  let val = document.getElementById("search_data").value;
+  if (linearClicked)
+    linearSearch(data, val);
+  else if (binaryClicked)
+    binarySearch(data, val);
+  else
+    console.log("No search selected");
+}
+
+function linearSearch(data, val) {
+  for (let i = 0; i < data.length; i++)  {
+    if (val == input_arr[i]) {
+      setTimeout(function () {
+          data[i].style.backgroundColor = "green";
+      }, timeoutTime*(i+1));
+      break;
+    }
+    else {
+      setTimeout(function () {
+          data[i].style.backgroundColor = "red";
+      }, timeoutTime*(i+1));
+    }
+  }
+}
+
+function binarySearch(data, val) {
+  let low = 0;
+  let high = data.length - 1;
+  let j = 1;
+
+  while (low <= high) {
+    let i = Math.floor((low + high) / 2);
+    if (val == input_arr[i]) {
+      setTimeout(function () {
+          data[i].style.backgroundColor = "green";
+      }, timeoutTime*j++);
+      break;
+    }
+    else if (input_arr[i] < val) {
+      setTimeout(function () {
+          data[i].style.backgroundColor = "red";
+      }, timeoutTime*j++);
+      low = i + 1;
+    }
+    else {
+      setTimeout(function () {
+          data[i].style.backgroundColor = "red";
+      }, timeoutTime*j++);
+      high = i - 1;
+    }
+  }
+}
+
+
+function doSort(val3, val4) {
+  if (tbl) {
+    tbl.remove();
+  }
+  showSearchInput("hidden");
+  linearClicked = false;
+  binaryClicked = false;
+
+  createTable();
+  let data = tbl.getElementsByTagName("td");
+
+  for (let i = 0; i < data.length; i++)
+      data[i].style.backgroundColor = getRandomColor();
+
+  if (val3)
+    selectionSort(data);
+  else if (val4)
+    bubbleSort(data);
+  else
+    console.log("No sort selected");
+}
+
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+function selectionSort(data) {
+  let len = data.length;
+  for (let i = 0; i < len; i++) {
+    let min = i;
+
+    setTimeout(function() {
+      for (let j = i + 1; j < len; j++) {
+          if (input_arr[min] > input_arr[j]) {
+              min = j;
+          }
+      }
+      if (min !== i) {
+          let temp = input_arr[i];
+
+          input_arr[i] = input_arr[min];
+          data[i].innerHTML = data[min].innerHTML;
+
+          input_arr[min] = temp;
+          data[min].innerHTML = temp;
+      }
+    }, timeoutTime*(i+1));
+  }
+}
+
+function bubbleSort(data) {
+  let len = data.length;
+  for (let i = 0; i < len; i++) {
+    setTimeout(function() {
+      for (let j = 0; j < len; j++) {
+        if (input_arr[j] > input_arr[j + 1]) {
+          let temp = input_arr[j];
+
+          input_arr[j] = input_arr[j + 1];
+          data[j].innerHTML = data[j+1].innerHTML;
+
+          input_arr[j + 1] = temp;
+          data[j+1].innerHTML = temp;
+        }
+      }
+    }, timeoutTime*(i+1));
+  }
+}
+
+function swap(items, leftIndex, rightIndex){
+  var temp = items[leftIndex];
+  items[leftIndex] = items[rightIndex];
+  items[rightIndex] = temp;
+}
+
+function partition(items, left, right) {
+  var pivot = items[Math.floor((right + left) / 2)],
+      i = left,
+      j = right;
+  while (i <= j) {
+      while (items[i] < pivot) {
+          i++;
+      }
+      while (items[j] > pivot) {
+          j--;
+      }
+      if (i <= j) {
+          swap(items, i, j);
+          i++;
+          j--;
+      }
+  }
+  return i;
+}
+
+function quickSort(items, left, right) {
+  var index;
+  if (items.length > 1) {
+      index = partition(items, left, right);
+      if (left < index - 1) {
+          quickSort(items, left, index - 1);
+      }
+      if (index < right) {
+          quickSort(items, index, right);
+      }
+  }
+  return items;
+}
