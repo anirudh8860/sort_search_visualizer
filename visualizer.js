@@ -36,8 +36,8 @@ function createTable() {
 
   let body = document.getElementsByTagName('body')[0];
   tbl.style.width = '500px';
-  tbl.style.height = '60px';
-  tbl.setAttribute("align", "center");
+  tbl.style.height = '100px';
+  tbl.setAttribute('align', 'center');
   let tbdy = document.createElement('tbody');
   let tr = tbl.insertRow(0);
   for (let i in input_arr) {
@@ -52,13 +52,30 @@ function createTable() {
 }
 
 function doSearch() {
-  createTable();
-  let data = tbl.getElementsByTagName("td");
-  let val = document.getElementById("search_data").value;
-  if (linearClicked)
+  if (tbl) {
+    tbl.remove();
+  }
+
+  if (linearClicked) {
+    createTable();
+    let data = tbl.getElementsByTagName("td");
+    let val = document.getElementById("search_data").value;
+
+    for (let i = 0; i < data.length; i++)
+      data[i].style.backgroundColor = "white"
+
     linearSearch(data, val);
-  else if (binaryClicked)
+  }
+  else if (binaryClicked) {
+    createTable();
+    let data = tbl.getElementsByTagName("td");
+    let val = document.getElementById("search_data").value;
+
+    for (let i = 0; i < data.length; i++)
+      data[i].style.backgroundColor = "white"
+
     binarySearch(data, val);
+  }
   else
     console.log("No search selected");
 }
