@@ -36,14 +36,12 @@ function createTable() {
 
   let body = document.getElementsByTagName('body')[0];
   tbl.style.width = '500px';
-  tbl.style.height = '100px';
-  tbl.setAttribute('border', '2');
+  tbl.style.height = '60px';
+  tbl.setAttribute("align", "center");
   let tbdy = document.createElement('tbody');
   let tr = tbl.insertRow(0);
   for (let i in input_arr) {
       var td = tr.insertCell();
-      td.appendChild(document.createTextNode('\u0020'));
-      td.setAttribute('rowSpan', 2);
       td.style.textAlign = "center";
       td.innerHTML = input_arr[i];
       tr.appendChild(td);

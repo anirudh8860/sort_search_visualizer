@@ -4,27 +4,32 @@
     <meta charset="UTF-8">
     <title>Data Search and Sort Visualizer</title>
     <script src="visualizer.js"></script>
+    <link rel="stylesheet" href="index.css" type="text/css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/kognise/water.css@latest/dist/dark.min.css">
   </head>
 
-  <body style="width:100%;">
-    <head>Data Search and Sort Visualizer</head>
+  <center>
+    <body style="width:100%;">
 
-    <p>Enter data set here <b>(Note please seperate input from commas)</b></p>
+      <head>Data Search and Sort Visualizer</head>
 
-    <p><input type="text" id="user_input"></input></p>
-    <p>Click on function you want to perform</b></p>
+      <p>Enter data set here <b>(Note please seperate input from commas)</b></p>
 
-    <p>
-      <button type="button" id="linear_search" onclick="setSearchValue(true, false)">Linear Search</button>
-      <button type="button" id="binary_search" onclick="setSearchValue(false, true)">Binary Search</button>
-      <button type="button" id="selection_sort" onclick="doSort(true, false)">Selection Sort</button>
-      <button type="button" id="bubble_sort" onclick="doSort(false, true)">Bubble Sort</button>
-    </p>
+      <p><input type="text" id="user_input" style="width: 450px; height: 20px;"></input></p>
+      <p>Click on function you want to perform</b></p>
 
-    <p>
-      <input type="number" id="search_data"></input>
-      <button type="button" id="search_btn" onclick="doSearch()">Search</button>
-    </p>
+      <p>
+        <button type="button" id="linear_search" onclick="setSearchValue(true, false)">Linear Search</button>
+        <button type="button" id="binary_search" onclick="setSearchValue(false, true)">Binary Search</button>
+        <button type="button" id="selection_sort" onclick="doSort(true, false)">Selection Sort</button>
+        <button type="button" id="bubble_sort" onclick="doSort(false, true)">Bubble Sort</button>
+      </p>
 
-  </body>
+      <p>
+        <input type="number" id="search_data"></input>
+        <button type="button" id="search_btn" onclick="doSearch()">Search</button>
+      </p>
+
+    </body>
+  </center>
 </html>
