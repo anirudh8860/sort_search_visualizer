@@ -35,7 +35,6 @@ function createTable() {
   }
 
   let body = document.getElementsByTagName('body')[0];
-  tbl.style.width = '500px';
   tbl.style.height = '100px';
   tbl.setAttribute('align', 'center');
   let tbdy = document.createElement('tbody');
