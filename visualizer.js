@@ -22,7 +22,7 @@ function createTable() {
   tbl = document.createElement('table');
   input_arr = generateInput();
 
-  if (!input_arr) {
+  if (input_arr.length == 0) {
     alert("Please enter data set or data set size!!!!!")
   }
 
