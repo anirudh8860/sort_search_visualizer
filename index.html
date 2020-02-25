@@ -12,19 +12,21 @@
     <body style="width:100%;">
       <h1>Data Search and Sort Visualizer</h1>
 
-      <p>Enter data set here <b>(Note please seperate input from commas)</b></p>
-
+      <p>Enter dataset here <b>(Note please seperate input from commas)</b></p>
       <p><input type="text" id="user_input" style="width: 450px; height: 20px;"></input></p>
-      <p>Click on function you want to perform</b></p>
+      <b>OR</b>
+      <p>Enter random dataset size:</p>
+      <p><input type="text" id="random_length" style="width: 30px; height: 20px;"></input></p>
 
+      <p>Click on function you want to perform</b></p>
       <p>
         <button type="button" id="linear_search" onclick="setSearchValue(true, false)">Linear Search</button>
         <button type="button" id="binary_search" onclick="setSearchValue(false, true)">Binary Search</button>
-        <button type="button" id="selection_sort" onclick="doSort(true, false)">Selection Sort</button>
-        <button type="button" id="bubble_sort" onclick="doSort(false, true)">Bubble Sort</button>
+        <button type="button" id="selection_sort" onclick="doSort(true, false, false)">Selection Sort</button>
+        <button type="button" id="bubble_sort" onclick="doSort(false, true, false)">Bubble Sort</button>
       </p>
 
-      <p>
+      <p id="search_para">
         <input type="number" id="search_data"></input>
         <button type="button" id="search_btn" onclick="doSearch()">Search</button>
       </p>

@@ -3,11 +3,9 @@ var binaryClicked = false, linearClicked = false;
 var timeoutTime = 1000;
 
 function showSearchInput(visibility) {
-  let searchText = document.getElementById("search_data");
-  let searchBtn = document.getElementById("search_btn");
+  let searchPara = document.getElementById("search_para");
 
-  searchText.style.visibility = visibility;
-  searchBtn.style.visibility = visibility;
+  searchPara.style.visibility = visibility;
 }
 
 function setSearchValue(val1, val2) {
@@ -22,11 +20,11 @@ function setSearchValue(val1, val2) {
 
 function createTable() {
   tbl = document.createElement('table');
-  let getInput = document.getElementById("user_input").value;
-  input_arr = getInput.split(",");
+  input_arr = generateInput();
 
-  for (let i in input_arr)
-    input_arr[i] = parseInt(input_arr[i]);
+  if (!input_arr) {
+    alert("Please enter data set or data set size!!!!!")
+  }
 
   console.log(input_arr);
 
@@ -48,6 +46,28 @@ function createTable() {
   }
   tbl.appendChild(tbdy);
   body.appendChild(tbl);
+}
+
+function generateInput() {
+  let arr = [];
+  let getInput = document.getElementById("user_input").value;
+  let randomLength = document.getElementById("random_length").value;
+
+  if (getInput) {
+    arr = getInput.split(",");
+
+    for (let i in input_arr)
+      arr[i] = parseInt(arr[i]);
+  }
+  else if (randomLength) {
+    randomLength = parseInt(randomLength);
+    console.log(randomLength);
+
+    for (let i = 0; i < randomLength; i++)
+      arr[i] = Math.round(Math.random() * i)
+  }
+
+  return arr;
 }
 
 function doSearch() {
@@ -198,10 +218,18 @@ function bubbleSort(data) {
   }
 }
 
-function swap(items, leftIndex, rightIndex){
-  var temp = items[leftIndex];
-  items[leftIndex] = items[rightIndex];
-  items[rightIndex] = temp;
+function quickSort(items, left, right) {
+  var index;
+  if (items.length > 1) {
+      index = partition(items, left, right);
+      if (left < index - 1) {
+          quickSort(items, left, index - 1);
+      }
+      if (index < right) {
+          quickSort(items, index, right);
+      }
+  }
+  return items;
 }
 
 function partition(items, left, right) {
@@ -224,16 +252,9 @@ function partition(items, left, right) {
   return i;
 }
 
-function quickSort(items, left, right) {
-  var index;
-  if (items.length > 1) {
-      index = partition(items, left, right);
-      if (left < index - 1) {
-          quickSort(items, left, index - 1);
-      }
-      if (index < right) {
-          quickSort(items, index, right);
-      }
-  }
-  return items;
+function swap(items, leftIndex, rightIndex){
+
+  var temp = items[leftIndex];
+  items[leftIndex] = items[rightIndex];
+  items[rightIndex] = temp;
 }
