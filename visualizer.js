@@ -71,6 +71,8 @@ function generateInput() {
 }
 
 function doSearch() {
+  let index = -1;
+  let val;
   if (tbl) {
     tbl.remove();
   }
@@ -78,33 +80,49 @@ function doSearch() {
   if (linearClicked) {
     createTable();
     let data = tbl.getElementsByTagName("td");
-    let val = document.getElementById("search_data").value;
+    val = document.getElementById("search_data").value;
 
     for (let i = 0; i < data.length; i++)
       data[i].style.backgroundColor = "white"
 
-    linearSearch(data, val);
+    index = linearSearch(data, val);
+    displayOutput(val, index);
   }
   else if (binaryClicked) {
     createTable();
     let data = tbl.getElementsByTagName("td");
-    let val = document.getElementById("search_data").value;
+    val = document.getElementById("search_data").value;
 
     for (let i = 0; i < data.length; i++)
       data[i].style.backgroundColor = "white"
 
-    binarySearch(data, val);
+    index = binarySearch(data, val);
+    displayOutput(val, index);
   }
-  else
+  else {
     console.log("No search selected");
+    alert("Select a search type!!!!")
+  }
+
+}
+
+function displayOutput(val, index) {
+  if (index != -1)
+    textNode = "Value " + val + " found at " + index + " from start";
+  else
+    textNode = "Value " + val + " not found in list"
+
+  document.getElementById("output").innerHTML = textNode;
 }
 
 function linearSearch(data, val) {
+  let index = -1;
   for (let i = 0; i < data.length; i++)  {
     if (val == input_arr[i]) {
       setTimeout(function () {
           data[i].style.backgroundColor = "green";
       }, timeoutTime*(i+1));
+      index = i;
       break;
     }
     else {
@@ -113,12 +131,16 @@ function linearSearch(data, val) {
       }, timeoutTime*(i+1));
     }
   }
+
+  return index;
 }
 
 function binarySearch(data, val) {
   let low = 0;
   let high = data.length - 1;
   let j = 1;
+  let index = -1;
+  let textNode;
 
   while (low <= high) {
     let i = Math.floor((low + high) / 2);
@@ -126,6 +148,7 @@ function binarySearch(data, val) {
       setTimeout(function () {
           data[i].style.backgroundColor = "green";
       }, timeoutTime*j++);
+      index = i;
       break;
     }
     else if (input_arr[i] < val) {
@@ -141,6 +164,8 @@ function binarySearch(data, val) {
       high = i - 1;
     }
   }
+
+  return index;
 }
 
 
@@ -253,7 +278,6 @@ function partition(items, left, right) {
 }
 
 function swap(items, leftIndex, rightIndex){
-
   var temp = items[leftIndex];
   items[leftIndex] = items[rightIndex];
   items[rightIndex] = temp;
