@@ -1,6 +1,8 @@
-body {
-  font-family: Helvetica;
+html, body {
+    margin: 0px;
+    width: 100%;
+    font-family: Helvetica;
 }
 input {
-    text-align: center; 
+    text-align: center;
 }

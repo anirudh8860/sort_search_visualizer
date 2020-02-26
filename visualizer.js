@@ -37,8 +37,12 @@ function createTable(isSearch) {
   tbl.style.height = '100px';
   tbl.setAttribute('align', 'center');
   let tbdy = document.createElement('tbody');
-  let tr = tbl.insertRow(0);
+  let row = 0, tr;
   for (let i in input_arr) {
+      if (i % 20 == 0) {
+        tr = tbl.insertRow(-1);
+      }
+
       var td = tr.insertCell();
       td.style.textAlign = "center";
       td.innerHTML = input_arr[i];
