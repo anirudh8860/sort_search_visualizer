@@ -4,7 +4,6 @@ var timeoutTime = 1000, range = 1000;
 
 function showSearchInput(visibility) {
   let searchPara = document.getElementById("search_para");
-
   searchPara.style.visibility = visibility;
 }
 
@@ -16,9 +15,11 @@ function setSearchValue(val1, val2) {
   binaryClicked = val2;
 
   showSearchInput("visible");
+
+  createTable(true);
 }
 
-function createTable() {
+function createTable(isSearch) {
   tbl = document.createElement('table');
   input_arr = generateInput();
 
@@ -41,6 +42,8 @@ function createTable() {
       var td = tr.insertCell();
       td.style.textAlign = "center";
       td.innerHTML = input_arr[i];
+      if (isSearch)
+        td.style.backgroundColor = "white";
       tr.appendChild(td);
       tbdy.appendChild(tr);
   }
@@ -82,28 +85,17 @@ function getDistinctValue(array, range){
 function doSearch() {
   let index = -1;
   let val;
-  if (tbl) {
-    tbl.remove();
-  }
 
   if (linearClicked) {
-    createTable();
     let data = tbl.getElementsByTagName("td");
     val = document.getElementById("search_data").value;
-
-    for (let i = 0; i < data.length; i++)
-      data[i].style.backgroundColor = "white"
 
     index = linearSearch(data, val);
     displayOutput(val, index);
   }
   else if (binaryClicked) {
-    createTable();
     let data = tbl.getElementsByTagName("td");
     val = document.getElementById("search_data").value;
-
-    for (let i = 0; i < data.length; i++)
-      data[i].style.backgroundColor = "white"
 
     index = binarySearch(data, val);
     displayOutput(val, index);
@@ -117,7 +109,7 @@ function doSearch() {
 
 function displayOutput(val, index) {
   if (index != -1)
-    textNode = "Value " + val + " found at " + index + " from start";
+    textNode = "Value " + val + " found at " + (index+1) + " from start";
   else
     textNode = "Value " + val + " not found in list"
 
@@ -186,7 +178,7 @@ function doSort(val3, val4) {
   linearClicked = false;
   binaryClicked = false;
 
-  createTable();
+  createTable(false);
   let data = tbl.getElementsByTagName("td");
 
   for (let i = 0; i < data.length; i++)
