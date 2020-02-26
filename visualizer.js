@@ -1,6 +1,6 @@
 var tbl, input_arr;
 var binaryClicked = false, linearClicked = false;
-var timeoutTime = 1000;
+var timeoutTime = 1000, range = 1000;
 
 function showSearchInput(visibility) {
   let searchPara = document.getElementById("search_para");
@@ -64,10 +64,19 @@ function generateInput() {
     console.log(randomLength);
 
     for (let i = 0; i < randomLength; i++)
-      arr[i] = Math.round(Math.random() * i)
+      arr[i] = getDistinctValue(arr, range);
   }
 
   return arr;
+}
+
+function getDistinctValue(array, range){
+   var n = Math.floor((Math.random() * range));
+   if(array.indexOf(n) == -1){
+    return n;
+   } else {
+    return getDistinctValue(array, range);
+   }
 }
 
 function doSearch() {
